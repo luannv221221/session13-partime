@@ -52,7 +52,7 @@
 
         </tbody>
     </table>
-    <a href="/add-category" class="btn btn-success">Thêm mới</a>
+    <a href="book/add" class="btn btn-success">Thêm mới</a>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

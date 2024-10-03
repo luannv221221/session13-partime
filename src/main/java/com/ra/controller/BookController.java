@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -24,23 +26,23 @@ public class BookController {
     }
     @GetMapping("/add")
     public String add(){
-        //trả về form thêm mới
         return "book/add";
     }
     @PostMapping("/add")
-    public String create(){
-        // lấy dữ liệu ừ form
-        // gọi đến service thêm mới
-    }
-    @GetMapping("/edit/{id}")
-    public String edit(){
-        //trả về form thêm mới
-        return "book/add";
-    }
-    @PostMapping("/edit/{id}")
-    public String update(){
-        // lấy dữ liệu ừ form
-        // gọi đến service thêm mới
+    public String create(
+            @RequestParam("title") String title,
+            @RequestParam("author") String author,
+            @RequestParam("price") double price,
+            @RequestParam("description") String description
+    ){
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setDescription(description);
+        book.setPrice(price);
+        if(bookService.create(book)){
+            return "redirect:/book";
+        }
         return "book/add";
     }
 }
