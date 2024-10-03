@@ -5,10 +5,7 @@ import com.ra.model.service.book.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,21 +22,14 @@ public class BookController {
         return "book/index";
     }
     @GetMapping("/add")
-    public String add(){
+    public String add(Model model){
+        Book book = new Book();
+        model.addAttribute("book",book);
         return "book/add";
     }
     @PostMapping("/add")
-    public String create(
-            @RequestParam("title") String title,
-            @RequestParam("author") String author,
-            @RequestParam("price") double price,
-            @RequestParam("description") String description
-    ){
-        Book book = new Book();
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setDescription(description);
-        book.setPrice(price);
+    public String create(@ModelAttribute Book book){
+
         if(bookService.create(book)){
             return "redirect:/book";
         }
